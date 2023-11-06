@@ -17,6 +17,7 @@ const server = http.createServer((request, response)=>{
 
     greet();
     greet();
+    greet();
 
     let path = "./views";
     switch(request.url){
