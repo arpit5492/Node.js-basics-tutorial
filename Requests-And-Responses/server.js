@@ -41,7 +41,7 @@ const server = http.createServer((request, response)=>{ // For creating the serv
         case '/about-me': // redirecting a url to the about page
             response.statusCode = 301;
             response.setHeader('Location', '/about');
-            response.end();
+            // response.end(); // Optional
         default:
             path += "/error.html";
             response.statusCode = 404;
