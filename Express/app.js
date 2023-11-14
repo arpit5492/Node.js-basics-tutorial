@@ -11,16 +11,19 @@ app.get('/', function(req, res){
 });
 
 app.get('/about', function(req, res){
+    console.log(req.url, req.method);
     res.sendFile("./views/about.html", {root: __dirname}); // It automatically sends a status code
 });
 
 // redirects
 app.get('/about-me', function(req, res){
+    console.log(req.url, req.method);
     res.redirect('/about'); // It automatically sends a status code
 });
 
 // 404 error page
 app.use(function(req, res){ // use() doesn't automatically send a status code
+    console.log(req.url, req.method);
     res.status(404).sendFile('./views/error.html', {root: __dirname});
 });
 // And error page is always written in the last, because JS will go from top to bottom
