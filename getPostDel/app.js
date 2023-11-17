@@ -43,11 +43,23 @@ app.post('/All-blogs', (req, res)=>{
   const blog = new Blog(req.body);
   blog.save()
     .then((result)=>{
-      res.redirect('All-blogs');
+      res.redirect('/All-blogs');
     })
     .catch(err=>{
       console.log(err);
     });
+});
+
+// Getting a single blog
+app.get('/All-blogs/:id', (req, res)=>{
+  const id = req.params.id;
+  Blog.findById(id)
+    .then((result)=>{
+      res.render('blog-details', {title: 'Blog Details', blog: result});
+    })
+    .catch(err=>{
+      console.log(err);
+    })
 });
 
 app.get('/about', function(req, res){
