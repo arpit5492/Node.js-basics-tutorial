@@ -16,9 +16,11 @@ mongoose.connect(DBConn)
   .then((result) => {app.listen(3000)})
   .catch((err) => {console.log(err)});
 
+  // view engines and middleware functions and static files
 app.set("view engine", "ejs");
 app.use(morgan('dev'));
-app.use(express.static('public')); 
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: true})); 
 
 app.get('/', function(req, res){
     // console.log(req.url, req.method);
@@ -27,11 +29,23 @@ app.get('/', function(req, res){
 
 // Outputting documents in views
 app.get('/All-blogs', (req, res)=>{
-  Blog.find().sort({ createdAt: -1})
+  Blog.find().sort({ createdAt: -1}) // sorting in descending order
     .then((result)=>{
       res.render('index', {title: 'All Blogs', b: result});
     })
     .catch(err =>{
+      console.log(err);
+    });
+});
+
+app.post('/All-blogs', (req, res)=>{
+  // console.log(req.body);
+  const blog = new Blog(req.body);
+  blog.save()
+    .then((result)=>{
+      res.redirect('All-blogs');
+    })
+    .catch(err=>{
       console.log(err);
     });
 });
