@@ -38,6 +38,7 @@ app.get('/All-blogs', (req, res)=>{
     });
 });
 
+// Adding a new blog and then redirecting to the home page
 app.post('/All-blogs', (req, res)=>{
   // console.log(req.body);
   const blog = new Blog(req.body);
@@ -59,7 +60,19 @@ app.get('/All-blogs/:id', (req, res)=>{
     })
     .catch(err=>{
       console.log(err);
+    });
+});
+
+// Deleting a blog from the database and showing the remaining blogs after deleting
+app.delete("/All-blogs/:id", (req, res)=>{ // As this is an ajax request, so we can't use redirect method here
+// That's why we will be sending a json to the frontend part, and then from the frontend we will redirect to the home page
+  const id = req.params.id;
+
+  Blog.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({redirect: '/All-blogs'});
     })
+    .catch(err => console.log(err));
 });
 
 app.get('/about', function(req, res){
