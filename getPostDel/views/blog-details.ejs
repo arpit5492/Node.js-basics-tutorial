@@ -13,7 +13,7 @@
     <script>
         const delButton = document.querySelector(".details a");
         delButton.addEventListener("click", (event)=>{
-            const endPoint = `/All-blogs/${delButton.dataset.doc}`;
+            const endPoint = `/blogs/${delButton.dataset.doc}`;
             fetch(endPoint, {
                 method: 'DELETE'
             })

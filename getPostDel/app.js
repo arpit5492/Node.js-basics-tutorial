@@ -24,11 +24,11 @@ app.use(express.urlencoded({extended: true}));
 
 app.get('/', function(req, res){
     // console.log(req.url, req.method);
-    res.redirect('/All-blogs');
+    res.redirect('/blogs');
 });
 
 // Outputting documents in views
-app.get('/All-blogs', (req, res)=>{
+app.get('/blogs', (req, res)=>{
   Blog.find().sort({ createdAt: -1}) // sorting in descending order
     .then((result)=>{
       res.render('index', {title: 'All Blogs', b: result});
@@ -39,20 +39,24 @@ app.get('/All-blogs', (req, res)=>{
 });
 
 // Adding a new blog and then redirecting to the home page
-app.post('/All-blogs', (req, res)=>{
+app.post('/blogs', (req, res)=>{
   // console.log(req.body);
   const blog = new Blog(req.body);
   blog.save()
     .then((result)=>{
-      res.redirect('/All-blogs');
+      res.redirect('/blogs');
     })
     .catch(err=>{
       console.log(err);
     });
 });
 
+app.get("/blogs/create", (req, res)=>{
+  res.render('create', {title: 'Create a blog'});
+});
+
 // Getting a single blog
-app.get('/All-blogs/:id', (req, res)=>{
+app.get('/blogs/:id', (req, res)=>{
   const id = req.params.id;
   Blog.findById(id)
     .then((result)=>{
@@ -64,23 +68,19 @@ app.get('/All-blogs/:id', (req, res)=>{
 });
 
 // Deleting a blog from the database and showing the remaining blogs after deleting
-app.delete("/All-blogs/:id", (req, res)=>{ // As this is an ajax request, so we can't use redirect method here
+app.delete("/blogs/:id", (req, res)=>{ // As this is an ajax request, so we can't use redirect method here
 // That's why we will be sending a json to the frontend part, and then from the frontend we will redirect to the home page
   const id = req.params.id;
 
   Blog.findByIdAndDelete(id)
     .then((result) => {
-      res.json({redirect: '/All-blogs'});
+      res.json({redirect: '/blogs'});
     })
     .catch(err => console.log(err));
 });
 
 app.get('/about', function(req, res){
     res.render('about', {title: 'About'});
-});
-
-app.get("/blogs/create", (req, res)=>{
-    res.render('create', {title: 'Create a blog'});
 });
 
 app.use(function(req, res){
