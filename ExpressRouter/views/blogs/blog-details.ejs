@@ -1,7 +1,7 @@
 <html>
-    <%- include("./partials/head.ejs") %>
+    <%- include("../partials/head.ejs") %>
     <body>
-        <%- include("./partials/nav.ejs") %>
+        <%- include("../partials/nav.ejs") %>
         <div class="details content">
             <h2><%= blog.title %></h2>
             <div class="content">
@@ -9,7 +9,7 @@
             </div>
             <a class="delete" data-doc="<%= blog._id %>">Delete</a> <!--Deleting a blog-->
         </div>
-        <%- include("./partials/footer.ejs")%>
+        <%- include("../partials/footer.ejs")%>
     <script>
         const delButton = document.querySelector(".details a");
         delButton.addEventListener("click", (event)=>{
