@@ -28,7 +28,7 @@ app.get('/', function(req, res){
 });
 
 // All the routes
-app.use(blogRoutes);
+app.use('/blogs/', blogRoutes);
 
 app.get('/about', function(req, res){
     res.render('about', {title: 'About'});
