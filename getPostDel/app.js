@@ -13,7 +13,7 @@ const pass = require('./.password');
 // connect to mongoDB
 const DBConn = 'mongodb+srv://'+pass.USER+':'+pass.PASSWORD+'@cluster0.bk8r1ze.mongodb.net/'+pass.DB_NAME+'?retryWrites=true&w=majority';
 mongoose.connect(DBConn)
-  .then((result) => {app.listen(3000)})
+  .then((result) => {app.listen(3100)})
   .catch((err) => {console.log(err)});
 
   // view engines and middleware functions and static files
